@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="pt-BR" class="h-full bg-gradient-to-r from-blue-50 via-white to-blue-50">
+<html lang="pt-BR" class="h-full bg-gradient-to-r from-blue-50 via-white to-blue-50 dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +25,7 @@
           /* Animação de carregamento */
     .loader {
         border: 8px solid #f3f3f3; /* Light grey */
+        @apply dark:border-gray-700; /* Dark mode style for loader border */
         border-top: 8px solid #3498db; /* Blue */
         border-radius: 50%;
         width: 48px;
@@ -40,6 +40,7 @@
     </style>
     <script>
         tailwind.config = {
+        darkMode: 'class',
             theme: {
                 extend: {
                     maxHeight: {
@@ -50,24 +51,24 @@
         }
     </script>
 </head>
-<body class="h-full font-roboto text-gray-700 flex flex-col">
+<body class="h-full font-roboto text-gray-700 dark:bg-slate-900 dark:text-gray-300 flex flex-col">
     <div class="flex-grow overflow-auto">
         <div class="container mx-auto px-2 py-6 w-full max-w-4xl">
-            <div class="bg-white rounded-xl shadow-lg p-2 sm:p-4 mb-6">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-2 sm:p-4 mb-6">
                 <!-- Cabeçalho -->
                 <div class="mb-4">
                     <div class="text-center mb-2">
-                        <h1 class="text-2xl sm:text-3xl font-montserrat text-gray-900 font-bold">Los_PelikoSs</h1>
+                        <h1 class="text-2xl sm:text-3xl font-montserrat text-gray-900 dark:text-white font-bold">Los_PelikoSs</h1>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <select id="clienteSelect" class="flex-grow p-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" onchange="onClienteChange()">
+                        <select id="clienteSelect" class="flex-grow p-2 text-sm border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" onchange="onClienteChange()">
                             <option value="">Selecione um cliente</option>
                         </select>
                       <!-- Botão para adicionar novo cliente -->
-                      <button id="addNewClienteBtn" class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 shadow-md sm:hidden" onclick="abrirPopup('adicionar')">
+                      <button id="addNewClienteBtn" class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:hover:bg-blue-700 transition duration-300 shadow-md sm:hidden" onclick="abrirPopup('adicionar')">
                         <i class="fas fa-user-plus"></i>
                     </button>
-                    <button id="addNewClienteBtnDesktop" class="hidden sm:block w-auto p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 shadow-md">
+                    <button id="addNewClienteBtnDesktop" class="hidden sm:block w-auto p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:hover:bg-blue-700 transition duration-300 shadow-md">
                         <i class="fas fa-user-plus mr-2"></i> Adicionar Cliente
                     </button>
                     </div>
@@ -83,18 +84,32 @@
 <!-- Contêiner Principal dos Ícones -->
 <div class="flex justify-between items-center w-full mt-4 px-0">
     
-    <!-- Botão Usuário à Esquerda -->
-    <div class="relative group">
-        <button 
-            onclick="abrirPopupUsuario()" 
-            class="p-2 bg-gray-200 text-purple-500 rounded-md hover:bg-gray-300 transition duration-300 shadow focus:outline-none focus:ring-2 focus:ring-purple-400" 
-            aria-label="Configurações do Usuário"
-        >
-            <i class="fas fa-user-cog fa-lg"></i>
-        </button>
-        <!-- Tooltip Usuário -->
-        <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            Configurações do Usuário
+    <!-- Botões à Esquerda (Dark Mode Toggle e Usuário) -->
+    <div class="flex space-x-2">
+        <!-- Dark Mode Toggle Button -->
+        <div class="relative group">
+            <button id="darkModeToggle" class="p-2 bg-gray-200 dark:bg-gray-700 text-yellow-500 dark:text-yellow-400 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300 shadow focus:outline-none focus:ring-2 focus:ring-yellow-400" aria-label="Toggle Dark Mode">
+                <i class="fas fa-moon fa-lg"></i>
+            </button>
+            <!-- Tooltip Dark Mode -->
+            <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 dark:bg-gray-700 text-white dark:text-gray-200 text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                Alternar Modo Escuro
+            </div>
+        </div>
+
+        <!-- Botão Usuário -->
+        <div class="relative group">
+            <button 
+                onclick="abrirPopupUsuario()" 
+                class="p-2 bg-gray-200 dark:bg-gray-700 text-purple-500 dark:text-purple-400 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300 shadow focus:outline-none focus:ring-2 focus:ring-purple-400" 
+                aria-label="Configurações do Usuário"
+            >
+                <i class="fas fa-user-cog fa-lg"></i>
+            </button>
+            <!-- Tooltip Usuário -->
+            <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 dark:bg-gray-700 text-white dark:text-gray-200 text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                Configurações do Usuário
+            </div>
         </div>
     </div>
 
@@ -104,13 +119,13 @@
         <div class="relative group">
             <button 
                 onclick="abrirMapa()" 
-                class="p-2 bg-gray-200 text-blue-500 rounded-md hover:bg-gray-300 transition duration-300 shadow focus:outline-none focus:ring-2 focus:ring-blue-400" 
+                class="p-2 bg-gray-200 dark:bg-gray-700 text-blue-500 dark:text-blue-400 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300 shadow focus:outline-none focus:ring-2 focus:ring-blue-400" 
                 aria-label="Abrir Mapa"
             >
                 <i class="fas fa-map-marker-alt fa-lg"></i>
             </button>
             <!-- Tooltip Mapa -->
-            <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 dark:bg-gray-700 text-white dark:text-gray-200 text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                 Abrir Mapa
             </div>
         </div>
@@ -119,13 +134,13 @@
         <div class="relative group">
             <button 
                 onclick="abrirPopup('editar')" 
-                class="p-2 bg-gray-200 text-yellow-500 rounded-md hover:bg-gray-300 transition duration-300 shadow focus:outline-none focus:ring-2 focus:ring-yellow-400" 
+                class="p-2 bg-gray-200 dark:bg-gray-700 text-yellow-500 dark:text-yellow-400 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300 shadow focus:outline-none focus:ring-2 focus:ring-yellow-400" 
                 aria-label="Editar Cliente"
             >
                 <i class="fas fa-edit fa-lg"></i>
             </button>
             <!-- Tooltip Editar -->
-            <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 dark:bg-gray-700 text-white dark:text-gray-200 text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                 Editar Cliente
             </div>
         </div>
@@ -134,13 +149,13 @@
         <div class="relative group">
             <button 
                 onclick="confirmClearMedidas()" 
-                class="p-2 bg-gray-200 text-red-500 rounded-md hover:bg-gray-300 transition duration-300 shadow focus:outline-none focus:ring-2 focus:ring-red-400" 
+                class="p-2 bg-gray-200 dark:bg-gray-700 text-red-500 dark:text-red-400 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300 shadow focus:outline-none focus:ring-2 focus:ring-red-400" 
                 aria-label="Excluir Cliente e Medidas"
             >
                 <i class="fas fa-trash-alt fa-lg"></i>
             </button>
             <!-- Tooltip Excluir -->
-            <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 dark:bg-gray-700 text-white dark:text-gray-200 text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                 Excluir Cliente e Medidas
             </div>
         </div>
@@ -155,18 +170,18 @@
 
                 <!-- Resultado e botões para telas maiores -->
                 <div class="hidden sm:block mt-4">
-                    <div id="resultadoDesktop" class="text-right text-xl sm:text-2xl font-bold text-green-500 mb-4">Total M²: 0,00 | Preço Total: R$ 0,00</div>
+                    <div id="resultadoDesktop" class="text-right text-xl sm:text-2xl font-bold text-green-500 dark:text-green-400 mb-4">Total M²: 0,00 | Preço Total: R$ 0,00</div>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        <button onclick="addMedidaGroup(true)" class="w-full p-4 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 shadow-md">
+                        <button onclick="addMedidaGroup(true)" class="w-full p-4 bg-green-500 text-white rounded-lg hover:bg-green-600 dark:hover:bg-green-700 transition duration-300 shadow-md">
                             Adicionar Medida
                         </button>
-                        <button onclick="duplicarMedidas()" class="w-full p-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition duration-300 shadow-md">
+                        <button onclick="duplicarMedidas()" class="w-full p-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 dark:hover:bg-yellow-700 transition duration-300 shadow-md">
                             Duplicar Medidas
                         </button>
-                        <button id="generatePdfButton" class="w-full p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 shadow-md">
+                        <button id="generatePdfButton" class="w-full p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700 transition duration-300 shadow-md">
                             Gerar PDF
                         </button>
-                        <button onclick="copyShareURL()" class="w-full p-4 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition duration-300 shadow-md">
+                        <button onclick="copyShareURL()" class="w-full p-4 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 dark:hover:bg-indigo-700 transition duration-300 shadow-md">
                             Compartilhar URL
                         </button>
                     </div>
@@ -176,20 +191,20 @@
     </div>
 
     <!-- Rodapé fixo para mobile -->
-    <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-white bg-opacity-85 shadow-lg border-t border-gray-800">
+    <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-white bg-opacity-85 dark:bg-gray-900 dark:bg-opacity-90 shadow-lg border-t border-gray-800 dark:border-gray-700">
         <div class="container mx-auto px-2 py-3">
-            <div id="resultadoMobile" class="text-center text-lg font-bold text-black-100 mb-2">Total M²: 0,00 | R$ 0,00</div>
+            <div id="resultadoMobile" class="text-center text-lg font-bold text-gray-800 dark:text-gray-200 mb-2">Total M²: 0,00 | R$ 0,00</div>
             <div class="flex justify-around items-center">
-                <button onclick="addMedidaGroup(true)" class="p-2 text-black-100 hover:text-yellow-300 transition duration-300">
+                <button onclick="addMedidaGroup(true)" class="p-2 text-gray-700 dark:text-gray-200 hover:text-yellow-500 dark:hover:text-yellow-400 transition duration-300">
                     <i class="fas fa-plus-circle text-2xl"></i>
                 </button>
-                <button onclick="duplicarMedidas()" class="p-2 text-black-100 hover:text-yellow-300 transition duration-300">
+                <button onclick="duplicarMedidas()" class="p-2 text-gray-700 dark:text-gray-200 hover:text-yellow-500 dark:hover:text-yellow-400 transition duration-300">
                     <i class="fas fa-copy text-2xl"></i>
                 </button>
-                <button id="generatePdfButtonMobile" class="p-2 text-black-100 hover:text-yellow-300  transition duration-300">
+                <button id="generatePdfButtonMobile" class="p-2 text-gray-700 dark:text-gray-200 hover:text-yellow-500 dark:hover:text-yellow-400 transition duration-300">
                     <i class="fas fa-file-pdf text-2xl"></i>
                 </button>
-                <button onclick="copyShareURL()" class="p-2 text-black-100 hover:text-yellow-300 transition duration-300">
+                <button onclick="copyShareURL()" class="p-2 text-gray-700 dark:text-gray-200 hover:text-yellow-500 dark:hover:text-yellow-400 transition duration-300">
                     <i class="fas fa-share-alt text-2xl"></i>
                 </button>
             </div>
@@ -217,7 +232,7 @@
                 <!-- Campo de Logotipo -->
                 <div>
                     <label for="logo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Logotipo</label>
-                    <input type="file" id="logo" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 dark:bg-gray-700 dark:text-gray-100">
+                    <input type="file" id="logo" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 dark:file:bg-blue-500 file:text-white hover:file:bg-blue-700 dark:hover:file:bg-blue-600 dark:bg-gray-700">
                     <img id="logoPreview" src="" alt="Preview do logotipo" class="mt-2 hidden max-h-20 rounded-md">
                 </div>
                 
@@ -286,7 +301,7 @@
             </button>
             <button 
                 onclick="abrirPopupPaymentMethods()" 
-                class="p-2 bg-gray-200 text-green-500 rounded-md hover:bg-gray-300 transition duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                class="p-2 bg-gray-200 dark:bg-gray-600 text-green-500 dark:text-green-400 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-green-400"
                 aria-label="Métodos de Pagamento"
             >
                 <i class="fas fa-dollar-sign fa-lg"></i>
@@ -344,7 +359,7 @@
               <div class="flex items-center">
                 <input type="checkbox" id="solicitar_adiantamento" class="form-checkbox h-4 w-4 text-blue-600 rounded">
                 <label for="solicitar_adiantamento" class="ml-2 text-gray-700 dark:text-gray-300">Solicitar Adiantamento</label>
-                <input type="number" id="porcentagem_adiantamento" placeholder="Porcentagem (%)" class="ml-4 p-1 border border-gray-300 rounded-md w-24 hidden">
+                <input type="number" id="porcentagem_adiantamento" placeholder="Porcentagem (%)" class="ml-4 p-1 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-md w-24 hidden">
             </div>
 
             <!-- Novos Campos: Observação -->
@@ -353,7 +368,7 @@
                 <label for="adicionar_observacao" class="ml-2 text-gray-700 dark:text-gray-300">Adicionar Observação</label>
             </div>
             <div id="campo_observacao" class="hidden">
-                <textarea id="observacao" placeholder="Escreva sua observação aqui..." class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+                <textarea id="observacao" placeholder="Escreva sua observação aqui..." class="w-full p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-md"></textarea>
             </div>
             <!-- Botão de Salvar -->
             <button type="submit" class="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 shadow-md">
@@ -1535,6 +1550,52 @@ async function carregarTiposAplicacaoPersonalizadosDoIndexedDB() {
             addDynamicSelectorsToMedidaGroup(grupo);
         });
     }
+
+
+    // Dark Mode Logic
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const htmlElement = document.documentElement; 
+
+    function updateDarkModeIcon() {
+        if (!darkModeToggle) { 
+            // console.warn("darkModeToggle button not found for icon update."); // Optional for debugging
+            return; 
+        }
+        if (htmlElement.classList.contains('dark')) {
+            darkModeToggle.innerHTML = '<i class="fas fa-sun fa-lg"></i>'; 
+            darkModeToggle.classList.remove('text-yellow-500');
+            darkModeToggle.classList.add('text-orange-500'); 
+        } else {
+            darkModeToggle.innerHTML = '<i class="fas fa-moon fa-lg"></i>'; 
+            darkModeToggle.classList.remove('text-orange-500');
+            darkModeToggle.classList.add('text-yellow-500');
+        }
+    }
+
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('darkMode', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('darkMode', 'dark');
+            }
+            updateDarkModeIcon();
+        });
+    } else {
+        // console.warn("darkModeToggle button not found for event listener attachment."); // Optional for debugging
+    }
+    
+    // Load saved preference from localStorage
+    const savedDarkMode = localStorage.getItem('darkMode');
+
+    if (savedDarkMode === 'dark') {
+        htmlElement.classList.add('dark');
+    } // No 'else' needed if default is light and no 'dark' class on html tag initially
+
+    // Initial icon update for dark mode, called within the main DOMContentLoaded
+    updateDarkModeIcon(); 
 });
     // Event Listener para Adiantamento em Porcentagem
     const solicitarAdiantamentoCheckbox = document.getElementById('solicitar_adiantamento');
@@ -1760,11 +1821,11 @@ function createDynamicSelector(type, options, placeholder) {
 
     const input = document.createElement('input');
     input.type = 'text';
-    input.className = 'w-full p-2 border border-gray-300 rounded-md';
+    input.className = 'w-full p-2 border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 rounded-md';
     input.placeholder = placeholder;
 
     const dropdown = document.createElement('ul');
-    dropdown.className = 'absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto hidden';
+    dropdown.className = 'absolute z-10 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-y-auto hidden';
 
     container.appendChild(input);
     container.appendChild(dropdown);
@@ -1792,7 +1853,7 @@ function createDynamicSelector(type, options, placeholder) {
         if (filteredOptions.length === 0 && value) {
             const listItem = document.createElement('li');
             listItem.textContent = `Adicionar "${normalizeBanheiro(value)}"`;
-            listItem.className = 'p-2 hover:bg-gray-100 cursor-pointer';
+            listItem.className = 'p-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300 cursor-pointer';
             listItem.addEventListener('click', async () => {
                 const normalizedNewValue = normalizeBanheiro(value);
                 if (!currentOptions.some(opt => normalizeText(opt) === normalizeText(normalizedNewValue))) {
@@ -1808,7 +1869,7 @@ function createDynamicSelector(type, options, placeholder) {
             filteredOptions.forEach(option => {
                 const listItem = document.createElement('li');
                 listItem.textContent = option;
-                listItem.className = 'p-2 hover:bg-gray-100 cursor-pointer';
+                listItem.className = 'p-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300 cursor-pointer';
                 listItem.addEventListener('click', () => {
                     input.value = option;
                     dropdown.classList.add('hidden');
@@ -1857,59 +1918,63 @@ function addMedidaGroup(isFirst, largura = '', altura = '', quantidade = 1, isCh
     console.log("Adicionando novo grupo de medidas");
     const container = document.getElementById('medidasContainer');
     const medidaGroup = document.createElement('div');
-    medidaGroup.classList.add('bg-white', 'shadow-md', 'rounded-lg', 'p-2', 'space-y-2');
-
+    
     const isZebra = container.children.length % 2 === 0;
-    const zebraClass = isZebra ? 'bg-gray-300' : 'bg-white';
+    // Base classes for light mode are applied first
+    medidaGroup.classList.add('shadow-md', 'rounded-lg', 'p-2', 'space-y-2', 'mb-2');
+    if (isZebra) {
+        medidaGroup.classList.add('bg-gray-300', 'dark:bg-gray-700');
+    } else {
+        medidaGroup.classList.add('bg-white', 'dark:bg-gray-800');
+    }
 
-    medidaGroup.classList.add(zebraClass, 'shadow-md', 'rounded-lg', 'p-2', 'space-y-2', 'mb-2');
 
     console.log("Películas disponíveis para o seletor:", peliculas);
 
     medidaGroup.innerHTML = 
         `<div class="flex items-center space-x-1">
             <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleInputs(this)" class="form-checkbox h-4 w-4 text-blue-600 rounded focus:ring-0">
-            <input type="number" placeholder="L" value="${largura}" class="w-1/4 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 largura-input" oninput="atualizarTotal(this)" maxlength="3">
-            <input type="number" placeholder="A" value="${altura}" class="w-1/4 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 altura-input" oninput="atualizarTotal(this)" maxlength="3">
-            <input type="number" placeholder="Q" value="${quantidade}" class="w-1/4 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 quantidade-input" oninput="atualizarTotal(this)" maxlength="3">
-            <input type="text" placeholder="M²" disabled class="w-1/4 p-1 border border-gray-300 rounded-md bg-gray-100 text-gray-600">
+            <input type="number" placeholder="L" value="${largura}" class="w-1/4 p-1 border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 largura-input" oninput="atualizarTotal(this)" maxlength="3">
+            <input type="number" placeholder="A" value="${altura}" class="w-1/4 p-1 border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 altura-input" oninput="atualizarTotal(this)" maxlength="3">
+            <input type="number" placeholder="Q" value="${quantidade}" class="w-1/4 p-1 border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 quantidade-input" oninput="atualizarTotal(this)" maxlength="3">
+            <input type="text" placeholder="M²" disabled class="w-1/4 p-1 border border-gray-300 dark:border-gray-500 rounded-md bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-400">
         </div>
         <div class="flex items-center space-x-1">
-            <select class="flex-grow min-w-0 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 pelicula-select" onchange="onPeliculaChange(this)">
+            <select class="flex-grow min-w-0 p-2 border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 pelicula-select" onchange="onPeliculaChange(this)">
                 ${peliculas.map(p => `<option value="${p.nome}" ${p.nome === peliculaSelecionada ? 'selected' : ''}>${p.nome}</option>`).join('')}
                 <option value="Outra">Outra</option>
             </select>
             <!-- Botão para editar a película -->
-            <button onclick="editarPelicula(this)" class="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400" aria-label="Editar Película">
-                <i class="fas fa-edit fa-lg text-purple-500"></i>
+            <button onclick="editarPelicula(this)" class="p-2 bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400" aria-label="Editar Película">
+                <i class="fas fa-edit fa-lg text-purple-500 dark:text-purple-400"></i>
             </button>
-            <button class="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-300 shadow-md flex-shrink-0 w-8 h-8 flex items-center justify-center" onclick="duplicarGrupo(this)" aria-label="Duplicar Grupo de Medidas">
-                <i class="fas fa-copy text-green-500"></i>
+            <button class="p-2 bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition duration-300 shadow-md flex-shrink-0 w-8 h-8 flex items-center justify-center" onclick="duplicarGrupo(this)" aria-label="Duplicar Grupo de Medidas">
+                <i class="fas fa-copy text-green-500 dark:text-green-400"></i>
             </button>
-            <button class="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-300 shadow-md flex-shrink-0 w-8 h-8 flex items-center justify-center" onclick="toggleAdditionalFields(this)" aria-label="Toggle Campos Adicionais">
-                <i class="fas fa-eye text-blue-500"></i>
+            <button class="p-2 bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition duration-300 shadow-md flex-shrink-0 w-8 h-8 flex items-center justify-center" onclick="toggleAdditionalFields(this)" aria-label="Toggle Campos Adicionais">
+                <i class="fas fa-eye text-blue-500 dark:text-blue-400"></i>
             </button>
-            <button class="p-2 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-300 shadow-md flex-shrink-0 w-8 h-8 flex items-center justify-center delete-button" onclick="deleteMedidaGroup(this)" style="display: ${isChecked ? 'none' : 'flex'};" aria-label="Excluir Grupo de Medidas">
-                <i class="fas fa-trash-alt text-red-500"></i>
+            <button class="p-2 bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition duration-300 shadow-md flex-shrink-0 w-8 h-8 flex items-center justify-center delete-button" onclick="deleteMedidaGroup(this)" style="display: ${isChecked ? 'none' : 'flex'};" aria-label="Excluir Grupo de Medidas">
+                <i class="fas fa-trash-alt text-red-500 dark:text-red-400"></i>
             </button>
         </div>
         <div class="additional-fields hidden mt-2">
             <!-- Seletor Dinâmico de Ambiente -->
             <div class="mb-2">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ambiente</label>
-                <input type="text" placeholder="Selecione ou digite o ambiente" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:text-gray-100">
+                <input type="text" placeholder="Selecione ou digite o ambiente" class="w-full p-2 border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 rounded-md focus:ring-2 focus:ring-purple-500">
             </div>
             <!-- Seletor Dinâmico de Tipo de Aplicação -->
             <div class="mb-2">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo de Aplicação</label>
-                <input type="text" placeholder="Selecione ou digite o tipo de aplicação" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:text-gray-100">
+                <input type="text" placeholder="Selecione ou digite o tipo de aplicação" class="w-full p-2 border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 rounded-md focus:ring-2 focus:ring-purple-500">
             </div>
         </div>`;
 
     container.insertBefore(medidaGroup, container.firstChild);
 
     const additionalFields = medidaGroup.querySelector('.additional-fields');
-    addDynamicSelectorsToMedidaGroup(medidaGroup);
+    addDynamicSelectorsToMedidaGroup(medidaGroup); // This will set up the dynamic selectors with dark styles
 
     // Definir valores para os seletores dinâmicos
     if (ambiente) {
@@ -1961,7 +2026,7 @@ function addMedidaGroup(isFirst, largura = '', altura = '', quantidade = 1, isCh
 //editarPelicula
 function editarPelicula(button) {
     // Obter o grupo de medidas correspondente
-    const medidaGroup = button.closest('.bg-white');
+    const medidaGroup = button.closest('.bg-white, .bg-gray-300'); // Adjusted to match zebra striping
     if (!medidaGroup) {
         console.error("Grupo de medidas não encontrado para editar a película.");
         return;
@@ -2000,7 +2065,7 @@ function editarPelicula(button) {
 
        //function atualizarTotal
         function atualizarTotal(input) {
-    const group = input.closest('.bg-white');
+    const group = input.closest('.bg-white, .bg-gray-300'); // Adjusted to match zebra striping
     const largura = parseFloat(group.querySelector('.largura-input').value) || 0;
     const altura = parseFloat(group.querySelector('.altura-input').value) || 0;
     const quantidade = parseInt(group.querySelector('.quantidade-input').value) || 0;
@@ -2012,7 +2077,7 @@ function editarPelicula(button) {
 
       // Função para duplicar um grupo de medidas
 function duplicarGrupo(button) {
-    const group = button.closest('.bg-white');
+    const group = button.closest('.bg-white, .bg-gray-300'); // Adjusted
     const largura = group.querySelector('.largura-input').value || '';
     const altura = group.querySelector('.altura-input').value || '';
     const quantidade = group.querySelector('.quantidade-input').value || '';
@@ -2055,7 +2120,7 @@ function duplicarMedidas() {
 
         function deleteMedidaGroup(button) {
             if (confirm('Tem certeza que deseja excluir este grupo de medidas?')) {
-                button.closest('.bg-white').remove();
+                button.closest('.bg-white, .bg-gray-300').remove(); // Adjusted
                 calculateTotal();
                 saveMedidas();
             }
@@ -2098,7 +2163,7 @@ function duplicarMedidas() {
         }
 
         function toggleAdditionalFields(button) {
-            const fields = button.closest('.bg-white').querySelector('.additional-fields');
+            const fields = button.closest('.bg-white, .bg-gray-300').querySelector('.additional-fields'); // Adjusted
             if (fields.classList.contains('hidden')) {
                 fields.classList.remove('hidden');
                 button.innerHTML = '<i class="fas fa-eye-slash"></i>';
@@ -2109,7 +2174,7 @@ function duplicarMedidas() {
         }
 //toggleInputs 
 function toggleInputs(checkbox) {
-    const medidaGroup = checkbox.closest('.bg-white');
+    const medidaGroup = checkbox.closest('.bg-white, .bg-gray-300'); // Adjusted
     const inputs = medidaGroup.querySelectorAll('input, select');
     inputs.forEach(input => {
         if (input !== checkbox) {
@@ -2224,7 +2289,7 @@ function toggleInputs(checkbox) {
                     </button>
                     <button 
                         onclick="fecharPopupPeliculaPersonalizada()" 
-                        class="p-2 bg-gray-200 text-gray-500 rounded-md hover:bg-gray-300 transition duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400"
+                        class="p-2 bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400"
                         aria-label="Cancelar"
                     >
                         <i class="fas fa-times fa-lg"></i>
